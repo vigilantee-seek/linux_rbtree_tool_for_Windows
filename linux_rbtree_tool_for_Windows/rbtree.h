@@ -29,14 +29,16 @@
 #ifndef __TOOLS_LINUX_PERF_RBTREE_H
 #define __TOOLS_LINUX_PERF_RBTREE_H
 
-#include <linux/kernel.h>
-#include <linux/stddef.h>
+#undef NULL
+#define NULL ((void *)0)
+
+enum {false, true};
 
 struct rb_node {
 	unsigned long  __rb_parent_color;
 	struct rb_node *rb_right;
 	struct rb_node *rb_left;
-} __attribute__((aligned(sizeof(long))));
+}; //__attribute__((aligned(sizeof(long))));
     /* The alignment might seem pointless, but allegedly CRIS needs it */
 
 struct rb_root {
@@ -47,7 +49,7 @@ struct rb_root {
 #define rb_parent(r)   ((struct rb_node *)((r)->__rb_parent_color & ~3))
 
 #define RB_ROOT	(struct rb_root) { NULL, }
-#define	rb_entry(ptr, type, member) container_of(ptr, type, member)
+// #define	rb_entry(ptr, type, member) container_of(ptr, type, member)
 
 #define RB_EMPTY_ROOT(root)  ((root)->rb_node == NULL)
 
@@ -85,10 +87,12 @@ static inline void rb_link_node(struct rb_node *node, struct rb_node *parent,
 	*rb_link = node;
 }
 
+/*
 #define rb_entry_safe(ptr, type, member) \
 	({ typeof(ptr) ____ptr = (ptr); \
 	   ____ptr ? rb_entry(____ptr, type, member) : NULL; \
 	})
+	*/
 
 
 /*

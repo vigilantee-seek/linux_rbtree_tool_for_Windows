@@ -1,0 +1,6 @@
+/Debug/*
+/.vs/*
+/linux_rbtree_tool_for_Windows/*
+/*.sln
+!/linux_rbtree_tool_for_Windows/*.h
+!/linux_rbtree_tool_for_Windows/*.c
